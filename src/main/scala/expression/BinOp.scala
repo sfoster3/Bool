@@ -6,6 +6,7 @@ package expression
 trait BinOp extends Expression {
 
   def children: Set[Expression]
+  def getFreeVars: Set[Variable] = children.map { child => child.getFreeVars }.flatten
 
 }
 
@@ -28,6 +29,7 @@ sealed case class And(val children: Set[Expression]) extends BinOp {
     else children.head.simplifyToCnf
   }
   override def toString: String = children.map(exp => exp.toString).mkString("(", " AND ", ")")
+  def applySubstitution(sub: Map[Variable, Boolean]) = And(children.map { child => child.applySubstitution(sub) })
 }
 object And {
   def apply(exps: Expression*): And = And(exps.toSet)
@@ -56,6 +58,7 @@ sealed case class Or(val children: Set[Expression]) extends BinOp {
     else children.head.simplifyToCnf
   }
   override def toString: String = children.map(exp => exp.toString).mkString("(", " OR ", ")")
+  def applySubstitution(sub: Map[Variable, Boolean]) = Or(children.map { child => child.applySubstitution(sub) })
 }
 object Or {
   def apply(exps: Expression*): Or = Or(exps.toSet)

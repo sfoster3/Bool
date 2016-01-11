@@ -22,4 +22,6 @@ sealed case class Not(val child: Expression) extends MonOp {
     case exp: Expression         => Not(exp)
   }
   override def toString: String = "(NOT " + child.toString + ")"
+  def getFreeVars: Set[Variable] = child.getFreeVars
+  def applySubstitution(sub: Map[Variable, Boolean]): Expression = Not(child.applySubstitution(sub))
 }
