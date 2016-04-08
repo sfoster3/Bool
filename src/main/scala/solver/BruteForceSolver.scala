@@ -29,3 +29,7 @@ class BruteForceSolver extends BoolSolver {
     }
   }
 }
+
+object BruteForceSolver {
+  def solve(exp: Expression): Option[Map[Variable, Boolean]] = new BruteForceSolver().solve(exp)
+}
