@@ -17,11 +17,11 @@ class EvaluateTests extends FlatSpec with Matchers {
   }
 
   "And" should "evaluate to false when one element is false" in {
-    And("A", false).evaluate should be(Some(false))
+    And(b"A", false).evaluate should be(Some(false))
   }
 
   it should "evaluate to None when it could be true" in {
-    And("A", true).evaluate should (not(be(defined)))
+    And(b"A", true).evaluate should (not(be(defined)))
   }
 
   it should "evaluate to true when all elements are true" in {
@@ -29,11 +29,11 @@ class EvaluateTests extends FlatSpec with Matchers {
   }
 
   "Or" should "evaluate to true when one element is true" in {
-    Or("A", true).evaluate should be(Some(true))
+    Or(b"A", true).evaluate should be(Some(true))
   }
 
   it should "evaluate to None when it could be true" in {
-    Or("A", false).evaluate should (not(be(defined)))
+    Or(b"A", false).evaluate should (not(be(defined)))
   }
 
   it should "evaluate to false when all elements are false" in {
@@ -46,7 +46,7 @@ class EvaluateTests extends FlatSpec with Matchers {
   }
 
   it should "evaulate to None when undefined" in {
-    Not("A").evaluate should (not(be(defined)))
+    Not(b"A").evaluate should (not(be(defined)))
   }
 
 }

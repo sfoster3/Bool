@@ -18,8 +18,3 @@ sealed case class Variable(value: Option[Boolean], name: String = "N/A") extends
 
 object Variable {
 }
-
-object Conversion {
-  implicit def stringToVariable(name: String): Expression = Variable(None, name)
-  implicit def boolToVariable(bool: Boolean): Expression = Variable(Some(bool))
-}

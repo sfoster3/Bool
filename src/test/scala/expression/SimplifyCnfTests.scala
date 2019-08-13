@@ -10,15 +10,15 @@ import org.scalatest.FlatSpec
 class SimplifyCnfTests extends FlatSpec with Matchers {
 
   "Not" should "reduce itself" in {
-    Not(Not("A")).simplifyToCnf should be("A": Expression)
+    Not(Not(b"A")).simplifyToCnf should be(b"A")
   }
 
   it should "distribute across And" in {
-    Not(And("A", "B")).simplifyToCnf should be(Or(Not("A"), Not("B")))
+    Not(And(b"A", b"B")).simplifyToCnf should be(Or(Not(b"A"), Not(b"B")))
   }
 
   it should "distribute across Or" in {
-    Not(Or("A", "B")).simplifyToCnf should be(And(Not("A"), Not("B")))
+    Not(Or(b"A", b"B")).simplifyToCnf should be(And(Not(b"A"), Not(b"B")))
   }
 
   it should "apply to variables" in {
@@ -30,11 +30,11 @@ class SimplifyCnfTests extends FlatSpec with Matchers {
   }
 
   "And" should "collect itself" in {
-    And(And("A", "B"), "C").simplifyToCnf should be(And("A", "B", "C"))
+    And(And(b"A", b"B"), b"C").simplifyToCnf should be(And(b"A", b"B", b"C"))
   }
 
   it should "reduce itself" in {
-    And("A").simplifyToCnf should be("A": Expression)
+    And(b"A").simplifyToCnf should be(b"A")
   }
 
   it should "apply recursively" in {
@@ -42,15 +42,15 @@ class SimplifyCnfTests extends FlatSpec with Matchers {
   }
 
   "Or" should "collect itself" in {
-    Or(Or("A", "B"), "C").simplifyToCnf should be(Or("A", "B", "C"))
+    Or(Or(b"A", b"B"), b"C").simplifyToCnf should be(Or(b"A", b"B", b"C"))
   }
 
   it should "reduce itself" in {
-    Or("A").simplifyToCnf should be("A": Expression)
+    Or(b"A").simplifyToCnf should be(b"A")
   }
 
   it should "associate on And" in {
-    Or(And("A", "B"), And("C", "D")).simplifyToCnf should be(And(And(Or("A", "C"), Or("A", "D")), And(Or("B", "C"), Or("B", "D"))))
+    Or(And(b"A", b"B"), And(b"C", b"D")).simplifyToCnf should be(And(And(Or(b"A", b"C"), Or(b"A", b"D")), And(Or(b"B", b"C"), Or(b"B", b"D"))))
   }
 
   it should "apply recursively" in {
